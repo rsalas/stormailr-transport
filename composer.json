@@ -1,0 +1,15 @@
+{
+    "name": "rsalas/stormailr-transport",
+    "autoload": {
+        "psr-4": {
+            "rsalas\\stormailr-transport\\": "src"
+        }
+    },
+    "extra": {
+        "stormailr-transport": {
+            "name": "StorMailR transport",
+            "description": "StorMailR transport"
+        }
+    }
+}
+
