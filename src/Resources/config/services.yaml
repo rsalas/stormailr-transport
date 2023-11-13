@@ -1,0 +1,7 @@
+services:
+    mailer.transport_factory.stormailr:
+        class: App\Transport\StorMailRTransportFactory
+        parent: mailer.transport_factory.abstract
+        tags:
+            - { name: mailer.transport_factory }
+

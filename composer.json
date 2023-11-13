@@ -1,14 +1,22 @@
 {
     "name": "rsalas/stormailr-transport",
+    "description": "Transport for StorMailR",
+    "authors": [
+        {
+            "name": "Rodolfo Salas",
+            "email": "rsalas@usalinux.org"
+        }
+    ],
+    "keywords": [
+	    "transport mailer symfony bundle"
+    ],
+    "license": "AGPL-3.0-or-later",
+    "require": {
+        "symfony/mailer":"5.4.*"
+    },
     "autoload": {
         "psr-4": {
             "rsalas\\stormailr-transport\\": "src"
-        }
-    },
-    "extra": {
-        "stormailr-transport": {
-            "name": "StorMailR transport",
-            "description": "StorMailR transport"
         }
     }
 }
