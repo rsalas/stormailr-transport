@@ -36,24 +36,24 @@ final class StorMailRTransport extends AbstractTransport
         $original = $message->getOriginalMessage();
         $priority = $original->getContext()['_priority'] ?? EmailPriorityEnum::LOW;
 
-        $recipients = [];
-        foreach ($message->getEnvelope()->getRecipients() as $to) {
-            $recipients[] = [
-                'email' => $to->getAddress(),
-                'name'  => $to->getName() ?? ''
-            ];
-        }
+        $recipients = $this->prepareEmail($original->getTo());
+        $cc = $this->prepareEmail($original->getCc());
+        $bcc = $this->prepareEmail($original->getBcc());
+
         $sender = $message->getEnvelope()->getSender();
 
         $slugger = new AsciiSlugger();
-
+        $project = $this->dsn->getOption('project');
+        $project = $project ? $project . ' - ': '';
 
         $data = [
             'from_email' => $sender->getAddress(),
             'from_name'  => $sender->getName(),
             'priority'   => $priority,
-            'campaign'   => $slugger->slug('GDI - ' . (new DateTime())->format('Y-m-d')),
+            'campaign'   => $slugger->slug($project . (new DateTime())->format('Y-m-d')),
             'recipients' => $recipients,
+            'cc'         => $cc,
+            'bcc'        => $bcc,
             'template'   => [
                 'subject' => $original->getSubject(),
                 'html'    => $original->getHtmlBody(),
@@ -67,7 +67,7 @@ final class StorMailRTransport extends AbstractTransport
             $client = new Client();
             $client->request(
                 'POST',
-                $protocol . '://'. $this->dsn->getHost() . '/api/v1/emails',
+                $protocol . '://' . $this->dsn->getHost() . '/api/v1/emails',
                 [
                     RequestOptions::HEADERS => $this->generateToken(),
                     RequestOptions::JSON    => $data
@@ -82,6 +82,19 @@ final class StorMailRTransport extends AbstractTransport
     public function __toString(): string
     {
         return 'stormailr://';
+    }
+
+    private function prepareEmail(array $listAddress): array
+    {
+        $recipients = [];
+        foreach ($listAddress as $address) {
+            $recipients[] = [
+                'email' => $address->getAddress(),
+                'name'  => $address->getName() ?? ''
+            ];
+        }
+
+        return $recipients;
     }
 
     /**
