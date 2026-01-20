@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Transport;
+namespace Rsalas\StormailrTransport\Transport;
 
-use App\Enum\EmailPriorityEnum;
+use Rsalas\StormailrTransport\Enum\EmailPriorityEnum;
 use DateTime;
 use Exception;
 use GuzzleHttp\Client;

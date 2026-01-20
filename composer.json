@@ -1,6 +1,7 @@
 {
     "name": "rsalas/stormailr-transport",
     "description": "Transport for StorMailR",
+    "type": "symfony-mailer-bridge",
     "authors": [
         {
             "name": "Rodolfo Salas",
@@ -8,15 +9,17 @@
         }
     ],
     "keywords": [
-	    "transport mailer symfony bundle"
+	    "transport mailer symfony bridge"
     ],
     "license": "AGPL-3.0-or-later",
     "require": {
-        "symfony/mailer":"5.4.*"
+        "php": ">=7.4",
+        "symfony/mailer": "5.4.*",
+        "guzzlehttp/guzzle": "^7.0"
     },
     "autoload": {
         "psr-4": {
-            "rsalas\\stormailr-transport\\": "src"
+            "Rsalas\\StormailrTransport\\": "src/"
         }
     }
 }

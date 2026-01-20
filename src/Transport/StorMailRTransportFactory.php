@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Transport;
+namespace Rsalas\StormailrTransport\Transport;
 
 use Symfony\Component\Mailer\Exception\UnsupportedSchemeException;
 use Symfony\Component\Mailer\Transport\AbstractTransportFactory;
