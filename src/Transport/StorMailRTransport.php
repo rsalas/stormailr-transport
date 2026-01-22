@@ -50,12 +50,12 @@ final class StorMailRTransport extends AbstractTransport
         
         $this->validateEmail($original);
         
-	$priority = EmailPriorityEnum::LOW;
+        $priority = EmailPriorityEnum::LOW;
         $headers = $original->getHeaders();
-        if ($headers->has('X-Priority')) {
-            $priority = (int) $headers->get('X-Priority')->getBody();
+        if ($headers->has('X-Send-Priority')) {
+            $priority = (int) $headers->get('X-Send-Priority')->getBody();
         }
-
+        
         $recipients = $this->prepareEmail($original->getTo());
         $cc = $this->prepareEmail($original->getCc());
         $bcc = $this->prepareEmail($original->getBcc());
